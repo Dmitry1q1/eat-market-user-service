@@ -14,9 +14,7 @@ public class UserController {
 
     @GetMapping(path = "/")
     public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-        users.add(new User(1, "username", "name", "surname"));
-        return users;
+        return null;
     }
 
 }
