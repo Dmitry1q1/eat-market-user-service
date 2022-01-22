@@ -5,21 +5,8 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-<!--    example-->
-<!--    <include file="/db/changelog/changes/bla-bla.xml"/>-->
-
-    <preConditions>
-        <dbms type="postgresql"/>
-    </preConditions>
-
-    <changeSet id="2" author="saymepravdy">
-        <tagDatabase tag="db_init"/>
+    <changeSet id="0" author="saymepravdy">
+        <sqlFile path="/db/changelog/changes/sql/create-user-table.sql"/>
     </changeSet>
 
-    <include file="/db/changelog/changes/create-role-table.xml"/>
-    <include file="/db/changelog/changes/create-user-table.xml"/>
-
-    <changeSet id="3" author="saymepravdy">
-        <tagDatabase tag="users_init"/>
-    </changeSet>
 </databaseChangeLog>
