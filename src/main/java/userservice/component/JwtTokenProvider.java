@@ -70,15 +70,18 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails,
+                "", userDetails.getAuthorities());
     }
 
     public String getUsername(String token) {
-        return Jwts.parserBuilder().setSigningKey(base64EncodedSecretKey).build().parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder().setSigningKey(base64EncodedSecretKey)
+                .build().parseClaimsJws(token).getBody().getSubject();
     }
 
     public Long getUserId(String token) {
-        return Long.parseLong(Jwts.parserBuilder().setSigningKey(base64EncodedSecretKey).build().parseClaimsJws(token).getBody().get("id").toString());
+        return Long.parseLong(Jwts.parserBuilder().setSigningKey(base64EncodedSecretKey)
+                .build().parseClaimsJws(token).getBody().get("id").toString());
     }
 
     public String resolveToken(HttpServletRequest req) {
@@ -124,9 +127,12 @@ public class JwtTokenProvider {
     }
 
     public Boolean isUserLoggedIn(String token) {
-//        String result = usersRepository.getToken(token);
-//        return result != null && result.equals(token);
-        return true;
+        String result = usersRepository.getToken(token);
+        return result != null && result.equals(token);
+    }
+
+    public void clearToken(String token) {
+        usersRepository.deleteToken(token);
     }
 
     public Boolean validateUsersData(HttpServletRequest request, Long userId) {
