@@ -2,11 +2,9 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-<!--    example-->
-<!--    <include file="/db/changelog/changes/bla-bla.xml"/>-->
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <!--    example-->
+    <!--    <include file="/db/changelog/changes/bla-bla.xml"/>-->
 
     <preConditions>
         <dbms type="postgresql"/>
@@ -21,5 +19,11 @@
 
     <changeSet id="3" author="saymepravdy">
         <tagDatabase tag="users_init"/>
+    </changeSet>
+
+    <include file="/db/changelog/changes/create-token-storage-table.xml"/>
+
+    <changeSet id="5" author="DmitrySosnilo">
+        <tagDatabase tag="add_token_storage"/>
     </changeSet>
 </databaseChangeLog>

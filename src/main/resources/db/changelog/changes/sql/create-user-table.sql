@@ -1,8 +1,8 @@
 create table if not exists t_user
 (
     id          BIGSERIAL primary key,
-    login       varchar(30) unique not null
-        constraint login_constraint check (char_length(login) > 0),
+    username       varchar(30) unique not null
+        constraint username_constraint check (char_length(username) != 0),
     first_name   varchar(50)        not null,
     last_name    varchar(50)        not null,
     phone_number varchar(15) unique not null,
@@ -13,4 +13,4 @@ create table if not exists t_user
 );
 
 create
-unique index if not exists t_user_login_uindex on t_user (login);
+unique index if not exists t_user_username_uindex on t_user (username);
