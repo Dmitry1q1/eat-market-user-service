@@ -7,6 +7,9 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet id="1" author="saymepravdy">
         <sqlFile path="/db/changelog/changes/sql/create-role-table.sql"/>
+        <rollback>
+            <sqlFile path="/db/changelog/changes/sql-rollback/drop-role-table.sql"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
