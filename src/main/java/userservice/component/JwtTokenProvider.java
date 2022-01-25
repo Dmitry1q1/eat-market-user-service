@@ -127,8 +127,7 @@ public class JwtTokenProvider {
     }
 
     public Boolean isUserLoggedIn(String token) {
-        String result = usersRepository.getToken(token);
-        return result != null && result.equals(token);
+        return usersRepository.getTokenCount(token) > 0;
     }
 
     public void clearToken(String token) {

@@ -19,8 +19,8 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Transactional
     void sentToken(@Param("token") String token);
 
-    @Query(value = "SELECT t_token_storage.token FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
-    String getToken(@Param("token") String token);
+    @Query(value = "SELECT count(*) FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
+    int getTokenCount(@Param("token") String token);
 
     @Modifying
     @Query(value = "DELETE FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
