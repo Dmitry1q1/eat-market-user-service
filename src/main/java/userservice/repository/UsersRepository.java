@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Repository
 public interface UsersRepository extends JpaRepository<User, Long> {
 
-    User findByLogin(@Param("login") String username);
+    User findByUsername(@Param("username") String username);
 
     @Modifying
     @Query(value = "INSERT INTO t_token_storage (token) VALUES (:token)", nativeQuery = true)

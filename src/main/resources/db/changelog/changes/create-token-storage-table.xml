@@ -3,8 +3,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="0" author="DmitrySosnilo">
-        <sqlFile path="/db/changelog/changes/sql/create-user-table.sql"/>
+    <changeSet id="4" author="DmitrySosnilo">
+        <sqlFile path="/db/changelog/changes/sql/create-token-storage-table.sql"/>
     </changeSet>
 
 </databaseChangeLog>
