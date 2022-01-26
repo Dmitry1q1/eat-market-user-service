@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {
@@ -52,10 +50,9 @@ public class JwtTokenProvider {
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<Role> roles, Long id) {
-        List<String> roleList = roles.stream().map(Role::getName).collect(Collectors.toList());
+    public String createToken(String username, Role role, Long id) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", roleList);
+        claims.put("role", role);
         claims.put("id", id.toString());
 
         Date now = new Date();

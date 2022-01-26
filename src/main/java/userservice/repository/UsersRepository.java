@@ -17,12 +17,13 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "INSERT INTO t_token_storage (token) VALUES (:token)", nativeQuery = true)
     @Transactional
-    void sentToken(@Param("token") String token);
+    void sendToken(@Param("token") String token);
 
     @Query(value = "SELECT count(*) FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
     int getTokenCount(@Param("token") String token);
 
     @Modifying
     @Query(value = "DELETE FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
+    @Transactional
     void deleteToken(@Param("token") String token);
 }
