@@ -48,10 +48,6 @@ public class RequestLoggingFilter implements Filter {
             }
             pars.append("\n");
         }
-//        StringBuilder pars = new StringBuilder("\n");
-//        for (Map.Entry entry : request.getParameterMap().entrySet()) {
-//            pars.append("\t").append(entry.getKey()).append(": ").append(entry.getValue().toString()).append("\n");
-//        }
         return pars.toString();
     }
 
