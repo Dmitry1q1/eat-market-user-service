@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import userservice.component.JwtTokenProvider;
-import userservice.component.mappers.UserMapper;
+import userservice.component.mapper.UserMapper;
 import userservice.dto.UserDTO;
 import userservice.entity.User;
 import userservice.repository.RolesRepository;

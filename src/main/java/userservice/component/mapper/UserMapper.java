@@ -1,4 +1,4 @@
-package userservice.component.mappers;
+package userservice.component.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
