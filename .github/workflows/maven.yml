@@ -18,7 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn clean build
+        run: mvn spring-boot:run
 #          cache: maven
 #          #      - name: Grant execute permission for gradlew
 #          #        run: chmod +x gradlew
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: mvn clean build
+        uses: codecov/codecov-action@v1
       - name: Coverage Report
         run: mvn jacocoTestReport
       - name: Upload coverage to Codecov
