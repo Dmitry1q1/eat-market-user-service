@@ -26,4 +26,6 @@
     <changeSet id="5" author="DmitrySosnilo">
         <tagDatabase tag="add_token_storage"/>
     </changeSet>
+
+    <include file="/db/changelog/changes/add-roles.xml"/>
 </databaseChangeLog>
