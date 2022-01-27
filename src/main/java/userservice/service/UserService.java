@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import userservice.component.JwtTokenProvider;
+import userservice.component.mappers.UserMapper;
 import userservice.dto.UserDTO;
 import userservice.entity.User;
 import userservice.repository.RolesRepository;
@@ -39,6 +40,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserMapper userMapper;
 
     public UserService(UsersRepository usersRepository, RolesRepository rolesRepository) {
         this.usersRepository = usersRepository;
@@ -75,21 +79,14 @@ public class UserService {
     }
 
     public ResponseEntity addUser(UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRole(rolesRepository.findRoleByName("ROLE_USER"));
+        User user = userMapper.dtoToUser(userDTO);
+
         if (!userDTO.getPassword().equals(userDTO.getPasswordConfirm())) {
             userDTO.setErrorDescription("Password copies are not equals");
         }
-
         if (usersRepository.findByUsername(userDTO.getUsername()) != null) {
             userDTO.setErrorDescription("Username is not unique");
         }
-
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         if (userDTO.getErrorDescription() == null) {
             usersRepository.save(user);
         }

@@ -1,5 +1,6 @@
 package userservice.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import java.util.Collection;
 
 @Data
+@Builder
 @Entity
 @Table(name = "t_user")
 public class User implements UserDetails {
