@@ -5,7 +5,7 @@ public class Tests {
 
     @Test
     public void testFalse() {
-        Assert.assertEquals(10, 20);
+        Assert.assertNotEquals(10, 20);
     }
 
     @Test
