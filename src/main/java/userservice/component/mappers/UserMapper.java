@@ -8,6 +8,8 @@ import userservice.entity.User;
 import userservice.repository.RolesRepository;
 import userservice.repository.UsersRepository;
 
+import static userservice.component.enums.Roles.ROLE_USER;
+
 @Component
 public class UserMapper {
 
@@ -29,7 +31,7 @@ public class UserMapper {
                 .lastName(userDTO.getLastName())
                 .username(userDTO.getUsername())
                 .phoneNumber(userDTO.getPhoneNumber())
-                .role(rolesRepository.findRoleByName("ROLE_USER"))
+                .role(rolesRepository.findRoleByName(ROLE_USER.value))
                 .password(passwordEncoder.encode(userDTO.getPassword()))
                 .build();
     }

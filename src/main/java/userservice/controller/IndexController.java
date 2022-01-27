@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import userservice.component.JwtTokenProvider;
 import userservice.dto.UserDTO;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(path = "/")
 public class IndexController {
 
     private final UserService userService;
@@ -27,22 +25,22 @@ public class IndexController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/")
     public String index() {
         return "Hello, world!";
     }
 
-    @PostMapping(path = "login")
+    @PostMapping(path = "/login")
     public ResponseEntity login(@RequestBody UserDTO userDTO) {
         return userService.loginUser(userDTO);
     }
 
-    @PostMapping(path = "registration")
+    @PostMapping(path = "/registration")
     public ResponseEntity registration(@RequestBody UserDTO userDTO) {
         return userService.addUser(userDTO);
     }
 
-    @PostMapping(path = "logout")
+    @PostMapping(path = "/logout")
     public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
         return userService.logoutUser(request, response);
     }
