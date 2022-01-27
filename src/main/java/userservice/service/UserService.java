@@ -87,20 +87,21 @@ public class UserService {
         if (usersRepository.findByUsername(userDTO.getUsername()) != null) {
             userDTO.setErrorDescription("Username is not unique");
         }
+        if (usersRepository.findByPhoneNumber(userDTO.getPhoneNumber()) != null) {
+            userDTO.setErrorDescription("Phone number is not unique");
+        }
         if (userDTO.getErrorDescription() == null) {
             usersRepository.save(user);
-        }
-
-        if (userDTO.getErrorDescription() != null && !userDTO.getErrorDescription().isEmpty()) {
+            Map<Object, Object> model = new HashMap<>();
+            model.put("success", true);
+            model.put("description", "Successful registration");
+            return new ResponseEntity<>(model, HttpStatus.OK);
+        } else {
             Map<Object, Object> errorModel = new HashMap<>();
             errorModel.put("success", false);
             errorModel.put("errorDescription", userDTO.getErrorDescription());
             return new ResponseEntity<>(errorModel, HttpStatus.BAD_REQUEST);
         }
-        Map<Object, Object> model = new HashMap<>();
-        model.put("success", true);
-        model.put("description", "Successful registration");
-        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     public ResponseEntity logoutUser(HttpServletRequest request, HttpServletResponse response) {

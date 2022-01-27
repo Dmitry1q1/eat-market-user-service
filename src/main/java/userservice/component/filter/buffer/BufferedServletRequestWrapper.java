@@ -14,15 +14,17 @@ public class BufferedServletRequestWrapper extends HttpServletRequestWrapper {
     public BufferedServletRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
 
-        InputStream is = request.getInputStream();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte buff[] = new byte[1024];
-        int read;
-        while ((read = is.read(buff)) > 0) {
-            baos.write(buff, 0, read);
+        try(InputStream is = request.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            byte buff[] = new byte[1024];
+            int read;
+            while ((read = is.read(buff)) > 0) {
+                baos.write(buff, 0, read);
+            }
+            this.buffer = baos.toByteArray();
+        } catch (IOException e) {
+            throw e;
         }
-
-        this.buffer = baos.toByteArray();
     }
 
     @Override

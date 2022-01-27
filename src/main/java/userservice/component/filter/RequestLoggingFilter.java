@@ -3,17 +3,18 @@ package userservice.component.filter;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.util.ContentCachingResponseWrapper;
-import org.springframework.web.util.WebUtils;
 import userservice.component.filter.buffer.BufferedServletRequestWrapper;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.Scanner;
 
 public class RequestLoggingFilter implements Filter {
@@ -56,13 +57,19 @@ public class RequestLoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest wrappedRequest = new BufferedServletRequestWrapper((HttpServletRequest) servletRequest);
-        String params = extractRequestParameters(wrappedRequest);
-        String body = extractRequestBody(wrappedRequest);
-        logger.info("Request " + wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
-                "\nParameters: " + params +
-                "\nBody: " + body);
 
+        HttpServletRequest wrappedRequest;
+        try {
+             wrappedRequest = new BufferedServletRequestWrapper((HttpServletRequest) servletRequest);
+            String params = extractRequestParameters(wrappedRequest);
+            String body = extractRequestBody(wrappedRequest);
+            logger.info("Request " + wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
+                    "\nParameters: " + params +
+                    "\nBody: " + body);
+        } catch (IOException e) {
+            logger.warn("Can't logging this request");
+            wrappedRequest = (HttpServletRequest) servletRequest;
+        }
         ContentCachingResponseWrapper responseCacheWrapperObject =
                 new ContentCachingResponseWrapper((HttpServletResponse) servletResponse);
         filterChain.doFilter(wrappedRequest, responseCacheWrapperObject);
