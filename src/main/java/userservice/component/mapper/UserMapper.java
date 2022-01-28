@@ -1,4 +1,4 @@
-package userservice.component.mappers;
+package userservice.component.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,14 +26,9 @@ public class UserMapper {
     }
 
     public User dtoToUser(UserDTO userDTO) {
-        return User.builder()
-                .firstName(userDTO.getFirstName())
-                .lastName(userDTO.getLastName())
-                .username(userDTO.getUsername())
-                .phoneNumber(userDTO.getPhoneNumber())
-                .role(rolesRepository.findRoleByName(ROLE_USER.value))
-                .password(passwordEncoder.encode(userDTO.getPassword()))
-                .build();
+        return new User(userDTO.getUsername(), userDTO.getFirstName(), userDTO.getLastName(),
+                passwordEncoder.encode(userDTO.getPassword()), userDTO.getPhoneNumber(),
+                rolesRepository.findRoleByName(ROLE_USER.value));
     }
 
     public UserDTO userToDto(User user) {

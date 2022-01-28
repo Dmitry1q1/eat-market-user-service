@@ -14,6 +14,8 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     User findByUsername(@Param("username") String username);
 
+    User findByPhoneNumber(@Param("phoneNumber") String phoneNumber);
+
     @Modifying
     @Query(value = "INSERT INTO t_token_storage (token) VALUES (:token)", nativeQuery = true)
     @Transactional

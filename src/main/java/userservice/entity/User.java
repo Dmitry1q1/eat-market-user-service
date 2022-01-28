@@ -1,6 +1,5 @@
 package userservice.entity;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +15,6 @@ import javax.persistence.Table;
 import java.util.Collection;
 
 @Data
-@Builder
 @Entity
 @Table(name = "t_user")
 public class User implements UserDetails {
@@ -71,5 +69,17 @@ public class User implements UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public User() {
+    }
+
+    public User(String username, String firstName, String lastName, String password, String phoneNumber, Role role) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 }
