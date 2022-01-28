@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import userservice.entity.Role;
 import userservice.entity.User;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,17 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT count(*) FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
     int getTokenCount(@Param("token") String token);
+
+    @Query(value = "SELECT is_blocked FROM t_user u WHERE u.username = :username", nativeQuery = true)
+    Boolean isUserBlocked(@Param("username") String username);
+
+    @Query(value = "SELECT role_id FROM t_user u WHERE u.username = :username", nativeQuery = true)
+    Integer findRoleIdByUsername(@Param("username") String username);
+
+    @Modifying
+    @Query(value = "UPDATE t_user u SET is_blocked = :is_blocked WHERE u.username = :username", nativeQuery = true)
+    @Transactional
+    void changeBlockingUser(@Param("is_blocked") boolean is_blocked, @Param("username") String username);
 
     @Modifying
     @Query(value = "DELETE FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)

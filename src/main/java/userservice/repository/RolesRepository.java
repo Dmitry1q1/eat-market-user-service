@@ -7,4 +7,6 @@ import userservice.entity.Role;
 public interface RolesRepository extends JpaRepository<Role, Long> {
 
     Role findRoleByName(@Param("name") String roleName);
+
+    Role findRoleById(@Param("id") int id);
 }

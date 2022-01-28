@@ -2,8 +2,12 @@ package userservice.component.filter;
 
 
 import org.apache.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import userservice.component.filter.buffer.BufferedServletRequestWrapper;
+import userservice.entity.User;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -53,13 +57,15 @@ public class RequestLoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         HttpServletRequest wrappedRequest;
         try {
              wrappedRequest = new BufferedServletRequestWrapper((HttpServletRequest) servletRequest);
             String params = extractRequestParameters(wrappedRequest);
             String body = extractRequestBody(wrappedRequest);
-            logger.info("Request " + wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            logger.info("Request from User: " + authentication.getName() + "\tRole: " +
+                    ((User)authentication.getPrincipal()).getRole().getName() + "\n" +
+                    wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
                     "\nParameters: " + params +
                     "\nBody: " + body);
         } catch (IOException e) {
