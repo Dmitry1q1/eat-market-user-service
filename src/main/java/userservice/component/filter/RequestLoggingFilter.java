@@ -3,6 +3,7 @@ package userservice.component.filter;
 
 import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -64,12 +65,12 @@ public class RequestLoggingFilter implements Filter {
             String body = extractRequestBody(wrappedRequest);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             logger.info("Request from User: " + authentication.getName() + "\tRole: " +
-                    ((User)authentication.getPrincipal()).getRole().getName() + "\n" +
                     wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
                     "\nParameters: " + params +
                     "\nBody: " + body);
-        } catch (IOException e) {
-            logger.warn("Can't logging this request");
+        } catch (IOException | AuthenticationException e) {
+            logger.warn("Can't logging this request\n");
+            logger.warn(e.getMessage());
             wrappedRequest = (HttpServletRequest) servletRequest;
         }
         ContentCachingResponseWrapper responseCacheWrapperObject =
