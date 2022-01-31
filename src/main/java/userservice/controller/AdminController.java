@@ -22,14 +22,14 @@ public class AdminController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @PostMapping(path = "/users/{username}/block")
-    public ResponseEntity blockUser(@PathVariable("username") String username) {
-        return userService.blockUser(username);
+    @PostMapping(path = "/users/{id}/block")
+    public ResponseEntity blockUser(@PathVariable("id") Long id) {
+        return userService.changeBlockingUser(true, id);
     }
 
-    @PostMapping(path = "/users/{username}/unblock")
-    public ResponseEntity unblockUser(@PathVariable("username") String username) {
-        return userService.unblockUser(username);
+    @PostMapping(path = "/users/{id}/unblock")
+    public ResponseEntity unblockUser(@PathVariable("id") Long id) {
+        return userService.changeBlockingUser(false, id);
     }
 
 }

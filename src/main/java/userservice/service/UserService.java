@@ -119,15 +119,8 @@ public class UserService {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    public ResponseEntity blockUser(String username) {
-        usersRepository.changeBlockingUser(true, username);
-        Map<Object, Object> model = new HashMap<>();
-        model.put("success", true);
-        return new ResponseEntity<>(model, HttpStatus.OK);
-    }
-
-    public ResponseEntity unblockUser(String username) {
-        usersRepository.changeBlockingUser(false, username);
+    public ResponseEntity changeBlockingUser(boolean blocking, Long id) {
+        usersRepository.changeBlockingUser(blocking, id);
         Map<Object, Object> model = new HashMap<>();
         model.put("success", true);
         return new ResponseEntity<>(model, HttpStatus.OK);

@@ -64,7 +64,7 @@ public class RequestLoggingFilter implements Filter {
             String params = extractRequestParameters(wrappedRequest);
             String body = extractRequestBody(wrappedRequest);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            logger.info("Request from User: " + authentication.getName() + "\tRole: " +
+            logger.info("Request from User: " + authentication.getName() + "\t" +
                     wrappedRequest.getMethod() + " : " + wrappedRequest.getRequestURI() +
                     "\nParameters: " + params +
                     "\nBody: " + body);

@@ -32,9 +32,9 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Integer findRoleIdByUsername(@Param("username") String username);
 
     @Modifying
-    @Query(value = "UPDATE t_user u SET is_blocked = :is_blocked WHERE u.username = :username", nativeQuery = true)
+    @Query(value = "UPDATE t_user u SET is_blocked = :is_blocked WHERE u.id = :id", nativeQuery = true)
     @Transactional
-    void changeBlockingUser(@Param("is_blocked") boolean is_blocked, @Param("username") String username);
+    void changeBlockingUser(@Param("is_blocked") boolean is_blocked, @Param("id") Long id);
 
     @Modifying
     @Query(value = "DELETE FROM t_token_storage WHERE t_token_storage.token = :token", nativeQuery = true)
