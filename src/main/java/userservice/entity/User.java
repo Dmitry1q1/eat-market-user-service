@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -33,13 +34,17 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
+    private boolean isBlocked;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new ArrayList<Role>() {{
+            add(role);
+        }};
     }
 
     @Override
@@ -54,7 +59,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !isBlocked;
     }
 
     @Override
@@ -74,12 +79,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String firstName, String lastName, String password, String phoneNumber, Role role) {
+    public User(String username, String firstName, String lastName, String password, String phoneNumber, Role role, boolean isBlocked) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.isBlocked = isBlocked;
     }
 }

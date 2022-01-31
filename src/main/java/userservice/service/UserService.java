@@ -110,8 +110,17 @@ public class UserService {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         String token = jwtTokenProvider.resolveToken(request);
-        usersRepository.deleteToken(token);
+        if (token != null) {
+            usersRepository.deleteToken(token);
+        }
 
+        Map<Object, Object> model = new HashMap<>();
+        model.put("success", true);
+        return new ResponseEntity<>(model, HttpStatus.OK);
+    }
+
+    public ResponseEntity changeBlockingUser(boolean blocking, Long id) {
+        usersRepository.changeBlockingUser(blocking, id);
         Map<Object, Object> model = new HashMap<>();
         model.put("success", true);
         return new ResponseEntity<>(model, HttpStatus.OK);
