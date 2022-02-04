@@ -4,32 +4,22 @@ services:
     image: postgres:latest
     #    network_mode: bridge
     container_name: postgres
-    #    volumes:
-    #      - postgres-data:/var/lib/postgresql/data
-    #    expose:
-    #      - 5432
-    #    ports:
-    #      - "9999:5432"
+    ports:
+      - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=uep250
-      - POSTGRES_USER=s311723
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=userdb
     restart: unless-stopped
 
   eat-app:
     image: eat-app:latest
     #    network_mode: bridge
     container_name: eat-app
-    expose:
-      - 8080
+#    expose:
+#      - 8080
     ports:
-      - "8080:9087"
+      - "8080:8080"
     #    restart: unless-stopped
     depends_on:
       - postgres
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:9999/studs
-      - SPRING_DATASOURCE_USERNAME=s311723
-      - SPRING_DATASOURCE_PASSWORD=uep250
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
-#volumes:
-#  postgres-data:
