@@ -6,9 +6,9 @@
     <!--    example-->
     <!--    <include file="/db/changelog/changes/bla-bla.xml"/>-->
 
-    <preConditions>
-        <dbms type="postgresql"/>
-    </preConditions>
+<!--    <preConditions>-->
+<!--        <dbms type="postgresql"/>-->
+<!--    </preConditions>-->
 
     <changeSet id="2" author="saymepravdy">
         <tagDatabase tag="db_init"/>
