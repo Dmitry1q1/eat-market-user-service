@@ -1,0 +1,25 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    #    network_mode: bridge
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=userdb
+    restart: unless-stopped
+
+  eat-app:
+    image: eat-app:latest
+    #    network_mode: bridge
+    container_name: eat-app
+#    expose:
+#      - 8080
+    ports:
+      - "8080:8080"
+    #    restart: unless-stopped
+    depends_on:
+      - postgres
